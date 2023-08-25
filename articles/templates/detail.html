@@ -12,8 +12,18 @@
         <input type="submit">
     </form>
 
+    <!-- len(article.comment_set.all()) -->
+    {% if not article.comment_set.all|length %}
+        <p>댓글이 없습니다</p>
+    {% endif %}
+
+
     {% for comment in article.comment_set.all %}
-    <p>{{comment.content}}</p>
+        <p>
+            {{comment.content}} 
+            <a href="{% url 'articles:comment_delete' article_id=article.id id=comment.id %}">삭제</a>
+        </p>
+        
     {% endfor %}
 
 {% endblock %}
