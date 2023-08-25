@@ -41,4 +41,18 @@ def detail(request, id):
     return render(request, 'detail.html', context)
 
 def comment_create(request, article_id):
-    pass
+    comment_form = CommentForm(request.POST)
+
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+
+        # 첫번째 방법
+        # article = Article.objects.get(id=article_id)
+        # comment.article = article
+
+        # 두번째 방법
+        comment.article_id = article_id
+
+        comment.save()
+
+        return redirect('articles:detail', id=article_id)
