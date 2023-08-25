@@ -11,4 +11,9 @@
         {{comment_form}}
         <input type="submit">
     </form>
+
+    {% for comment in article.comment_set.all %}
+    <p>{{comment.content}}</p>
+    {% endfor %}
+
 {% endblock %}
